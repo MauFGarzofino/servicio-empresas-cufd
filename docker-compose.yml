@@ -1,0 +1,18 @@
+services:
+  servicio-empresas-cufd:
+    build: .
+    container_name: servicio-empresas-cufd
+    env_file: .env
+    depends_on:
+      - mongo_empresas
+    ports:
+      - "3001:3000" # expone el Nest (3000 interno) en 3001 local
+    command: [ "node", "dist/main.js" ]
+
+  mongo_empresas:
+    image: mongo:6
+    container_name: mongo_empresas
+    command: [ "mongod", "--bind_ip_all", "--noauth" ]
+    volumes:
+      - ./scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./_data/mongo:/data/db
