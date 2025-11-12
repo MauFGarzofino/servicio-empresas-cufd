@@ -1,21 +1,17 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { HealthController } from './health.controller';
-// import { EmpresasModule } from './empresas/empresas.module';
-// import { SucursalesModule } from './sucursales/sucursales.module';
-// import { PuntosVentaModule } from './puntos-venta/puntos-venta.module';
-// import { CufdModule } from './cufd/cufd.module';
+import { EmpresasModule } from './empresas/empresas.module';
+import { PuntosVentaModule } from './puntos-venta/puntos-venta.module';
+import { SucursalesModule } from './empresas/sucursales.module';
 
 @Module({
-    imports: [
-        ConfigModule.forRoot({ isGlobal: true }),
-        MongooseModule.forRoot(process.env.MONGO_URI as string),
-        // EmpresasModule,
-        // SucursalesModule,
-        // PuntosVentaModule,
-        // CufdModule,
-    ],
-    controllers: [HealthController],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRoot(process.env.MONGO_URI as string),
+    EmpresasModule,
+    SucursalesModule,
+    PuntosVentaModule,
+  ],
 })
 export class AppModule { }
