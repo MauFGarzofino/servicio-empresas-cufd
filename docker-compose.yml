@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  servicio-empresas-cufd:
+    build: .
+    container_name: servicio-empresas-cufd
+    env_file: .env
+    depends_on:
+      - mongo_empresas
+    ports:
+      - "3001:3000"
+    command: [ "node", "dist/main.js" ]
+
+  mongo_empresas:
+    image: mongo:6
+    container_name: mongo_empresas
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./_data/mongo:/data/db
