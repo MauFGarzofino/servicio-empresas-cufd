@@ -1,6 +1,6 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Empresa } from './schemas/empresa.schema';
+import { Empresa } from 'src/empresas/schemas/empresa.schema';
 import { Model } from 'mongoose';
 import { CreateSucursalDto } from './dto/create-sucursal.dto';
 import { UpdateSucursalDto } from './dto/update-sucursal.dto';

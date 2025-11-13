@@ -19,7 +19,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const doc = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, doc);
+  SwaggerModule.setup('empresas/api/docs', app, doc);
 
   await app.listen(process.env.PORT || 3000);
   console.log(`Swagger: http://localhost:3001/api/docs`);
