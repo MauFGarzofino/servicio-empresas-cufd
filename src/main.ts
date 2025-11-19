@@ -22,6 +22,15 @@ async function bootstrap() {
     .setTitle('Servicio Empresas-CUFD')
     .setDescription('API para gestión de empresas y CUIS embebido en sucursales')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Ingrese el token JWT obtenido desde /auth/token',
+      },
+      'JWT-auth',
+    )
     .build();
   const doc = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('empresas/api/docs', app, doc);

@@ -1,11 +1,13 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 import { SucursalesService } from './sucursales.service';
 import { CreateSucursalDto } from './dto/create-sucursal.dto';
 import { UpdateSucursalDto } from './dto/update-sucursal.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @ApiTags('Sucursales')
 @Controller('empresas/:nit/sucursales')
+@UseGuards(AuthGuard)
 export class SucursalesController {
     constructor(private readonly service: SucursalesService) { }
 

@@ -7,6 +7,7 @@ import {
     Patch,
     Delete,
     Query,
+    UseGuards,
 } from '@nestjs/common';
 import {
     ApiTags,
@@ -22,9 +23,11 @@ import { PuntosVentaService } from './puntos-venta.service';
 import { CreatePuntoVentaDto } from './dto/create-punto-venta.dto';
 import { UpdatePuntoVentaDto } from './dto/update-punto-venta.dto';
 import { QueryPuntoVentaDto } from './dto/query-punto-venta.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @ApiTags('Puntos de Venta')
 @Controller('empresas/:nit/sucursales/:codigoSucursal/puntos-venta')
+@UseGuards(AuthGuard)
 export class PuntosVentaController {
     constructor(private readonly service: PuntosVentaService) { }
 
