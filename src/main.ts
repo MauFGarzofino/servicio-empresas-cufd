@@ -2,6 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { join } from 'path';
+import { LogstashInterceptor } from './logger/logstash.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,6 +16,8 @@ async function bootstrap() {
     transformOptions: { enableImplicitConversion: true },
   }));
 
+  app.useGlobalInterceptors(new LogstashInterceptor());
+
   const config = new DocumentBuilder()
     .setTitle('Servicio Empresas-CUFD')
     .setDescription('API para gestión de empresas y CUIS embebido en sucursales')
@@ -21,6 +26,16 @@ async function bootstrap() {
   const doc = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('empresas/api/docs', app, doc);
 
+  const grpcApp = app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.GRPC,
+    options: {
+      url: '0.0.0.0:50051', // puerto gRPC
+      package: 'punto_venta',
+      protoPath: join(__dirname, '../proto/punto_venta.proto'),
+    },
+  });
+
+  await app.startAllMicroservices();
   await app.listen(process.env.PORT || 3000);
   console.log(`Swagger: http://localhost:3001/api/docs`);
 }
