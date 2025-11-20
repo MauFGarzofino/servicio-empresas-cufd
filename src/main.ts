@@ -38,7 +38,7 @@ async function bootstrap() {
   const grpcApp = app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
-      url: '0.0.0.0:50051', // puerto gRPC
+      url: '0.0.0.0:50053', // puerto gRPC
       package: 'punto_venta',
       protoPath: join(__dirname, '../proto/punto_venta.proto'),
     },
