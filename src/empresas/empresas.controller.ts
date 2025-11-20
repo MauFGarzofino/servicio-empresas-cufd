@@ -4,6 +4,7 @@ import { CreateEmpresaDto } from './dto/create-empresa.dto';
 import { UpdateEmpresaDto } from './dto/update-empresa.dto';
 import {
     ApiBadRequestResponse,
+    ApiBearerAuth,
     ApiBody,
     ApiConflictResponse,
     ApiCreatedResponse,
@@ -14,6 +15,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
 
+@ApiBearerAuth('JWT-auth')
 @ApiTags('Empresas')
 @Controller('empresas')
 @UseGuards(AuthGuard)
