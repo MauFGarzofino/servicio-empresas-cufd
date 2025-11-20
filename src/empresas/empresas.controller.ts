@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { EmpresasService } from './empresas.service';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
 import { UpdateEmpresaDto } from './dto/update-empresa.dto';
@@ -12,9 +12,11 @@ import {
     ApiParam,
     ApiTags,
 } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @ApiTags('Empresas')
 @Controller('empresas')
+@UseGuards(AuthGuard)
 export class EmpresasController {
     constructor(private readonly empresasService: EmpresasService) { }
 
